@@ -5,7 +5,10 @@ var timeBlock;
 var description;
 var text;
 var parent;
-function render (){
+var dayNum = dayjs().format('D');
+var currentHour = dayjs().hour();
+
+function renderEvent (){
   for (var i=9;i<18;i++)
   {
     timeBlock = "hour-" + i;
@@ -16,11 +19,56 @@ function render (){
   }
 }
 
+function renderDate(){
+  if (dayNum % 10 == 1 && dayNum != 11)
+  {
+    $('#currentDay').text(dayjs().format('dddd,MMMM D[st]'));
+  }
+  else if(dayNum % 10 == 2 && dayNum != 12)
+  {
+    $('#currentDay').text(dayjs().format('dddd,MMMM D[nd]'));
+  }else if(dayNum % 10 == 3 && dayNum != 13)
+  {
+    $('#currentDay').text(dayjs().format('dddd,MMMM D[rd]'));
+  }else{
+    $('#currentDay').text(dayjs().format('dddd,MMMM D[th]'));
+  }
+
+}
+
+function renderColor(){
+
+  for(var i=9 ; i<18 ; i++)
+  {
+    if (i<currentHour)
+    {
+      console.log(i + "past");
+
+      $('#hour-'+i).addClass("past")
+    }
+    else if (i==currentHour)
+    {
+      console.log(i + "present");
+      $('#hour-'+i).addClass("present")
+    }
+    else if(i>currentHour)
+    {
+      console.log(i + "future");
+      $('#hour-'+i).addClass("future")
+    }
+  }
+}
+
+
 $(function () {
-
-  render();
-
-
+  
+  renderEvent();
+  renderDate();
+  renderColor();
+  
+  
+  
+  console.log(dayjs().hour());
   var button = $('.btn');
   
   // TODO: Add a listener for click events on the save button. This code should
