@@ -6,8 +6,8 @@ var text;
 var parent;
 var button = $('.btn');
 var dayNum = dayjs().format('D');
-var currentHour = 12
-// dayjs().hour();
+var currentHour = dayjs().hour();
+
 // funtion to render the events to the time block
 
 function renderEvent (){
